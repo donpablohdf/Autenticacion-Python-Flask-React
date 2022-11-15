@@ -2,51 +2,84 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			favoritos: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+			traeDatosAPI_2: async (url, destino) => {
+				// para meter los datos de la API
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + destino)
+					const data = await resp.json()
+					let llenar = {}
+					llenar[destino] = data
+					await setStore(llenar)
+					return data
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
 
+			},
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+			construirObjeto: (url, objeto) => {
+				const datosStore = getStore();
+				if (!datosStore.hasOwnProperty(objeto)) {
+					console.log("NO existe el objeto " + objeto + " en el store")
+					const cumplePromesa = () => {
+						return new Promise((resolve, reject) => {
+							resolve(() => {
+								//datosStore[objeto] = new Object() // creo el array en store
+								return getActions().traeDatosAPI(url, objeto) // prometo que traigo datos del obj
+							})
+						})
+					}
+					cumplePromesa().then((datos) => {
+						return datos// tengo que meter los datos recibidos en un useState del componete que los recibe para poder renderizarlo en el return
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+					}
+					)
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
+				} else {
+					return datosStore[objeto]
+				}
+
+			},
+			addFavorite: (secc, uid, atitle) => {
+				const store = getStore()
+				let esta = false
+				if (Object.keys(store.favoritos).length === 0) { esta = false } else {
+					store.favoritos.map((dato) => { if (dato.encuentra === secc + uid) { esta = true } })
+				}
+				if (!esta) {
+					const newFav = { id: uid, clase: secc, title: atitle, encuentra: secc + uid }
+					const result = store.favoritos.concat(newFav)
+					setStore({ favoritos: result })
+				}
+			},
+			delFavorite: (index) => {
+				const store = getStore()
+				const result = store.favoritos.filter(dato => dato.encuentra !== index);
+				setStore({ favoritos: result })
+			},
+			esFavorite: (index) => {
+				const store = getStore()
+				let esta = false
+				if (Object.keys(store.favoritos).length === 0) { esta = false } else {
+					store.favoritos.map((dato) => { if (dato.encuentra === index) { esta = true } })
+				}
+				return esta
+			},
 		}
 	};
 };

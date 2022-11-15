@@ -1,29 +1,9 @@
+# coding: utf-8
+from sqlalchemy import Boolean, Column, Integer, String, Text, text
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=False)
-    user_login = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(255), unique=False, nullable=False)
-    firstname = db.Column(db.String(255), unique=False, nullable=True)
-    lastname = db.Column(db.String(255), unique=False, nullable=True)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-
-    def __repr__(self):
-        return f'<Users {self.email}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "firstname": self.firstname,
-            "lastname": self.lastname,
-            "email": self.email,
-            # do not serialize the password, its a security breach
-        }
 
 class Films(db.Model):
 
@@ -61,6 +41,7 @@ class Films(db.Model):
             
         }
 
+
 class FilmsDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -75,6 +56,7 @@ class FilmsDetail(db.Model):
     starships = db.Column(db.Text, unique=False, nullable=True)
     vehicles = db.Column(db.Text, unique=False, nullable=True)
     species = db.Column(db.Text, unique=False, nullable=True)
+
     def __repr__(self):
         return f'<FilmsDetail {self.id}>'
 
@@ -95,6 +77,7 @@ class FilmsDetail(db.Model):
             
         }
 
+
 class People(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -111,6 +94,7 @@ class People(db.Model):
             "url": self.url,
             
         }
+
 
 class PeopleDetail(db.Model):
 
@@ -147,6 +131,7 @@ class PeopleDetail(db.Model):
             
         }
 
+
 class Planets(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -163,6 +148,7 @@ class Planets(db.Model):
             
         }
     
+
 class PlanetsDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -197,7 +183,9 @@ class PlanetsDetail(db.Model):
             "url": self.url,
             
         }
-        
+
+
+
 class Sections(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -211,6 +199,7 @@ class Sections(db.Model):
             "section": self.section,
             
         }
+
 
 class Species(db.Model):
 
@@ -227,6 +216,7 @@ class Species(db.Model):
             "url": self.url,
             
         }
+
 
 class SpeciesDetail(db.Model):
 
@@ -267,6 +257,8 @@ class SpeciesDetail(db.Model):
             
         }
 
+
+
 class Starships(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -283,6 +275,8 @@ class Starships(db.Model):
             
         }
     
+
+
 class StarshipsDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -328,6 +322,7 @@ class StarshipsDetail(db.Model):
             
         }
 
+
 class Vehicles(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -344,7 +339,8 @@ class Vehicles(db.Model):
             "url": self.url,
             
         }
-                
+
+
 class VechiclesDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -386,4 +382,28 @@ class VechiclesDetail(db.Model):
             "name": self.name,
             "url": self.url,
             
+        }
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), unique=False, nullable=False)
+    user_login = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), unique=False, nullable=False)
+    firstname = db.Column(db.String(255), unique=False, nullable=True)
+    lastname = db.Column(db.String(255), unique=False, nullable=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'<Users {self.email}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "email": self.email,
+            # do not serialize the password, its a security breach
         }
