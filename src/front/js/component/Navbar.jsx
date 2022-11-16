@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
-import "../../styles/navBar.css"
-import logo from "/src/front/img/logoStartWars.png"
-import { Login } from "./Login.jsx";
-import { Favorites } from "./Favorites.jsx";
-import { DropdownMenu } from './DropdownMenu.jsx'
+import React, { useState, useContext } from "react";
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Context } from '../store/appContext';
+import '../../styles/navBar.css'
+import logo from '/src/front/img/logoStartWars.png'
+import { Login } from './Login.jsx';
+import { Favorites } from './Favorites.jsx';
 
 
 
@@ -13,7 +13,7 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 
 
-	const n_favs = Object.keys(store.favoritos).length
+	const n_favs = (store.favoritos).length
 	return (
 		<nav className="navbar bg-secondary text-bg-secondary p-3 d-flex sticky-top">
 
@@ -36,4 +36,7 @@ export const Navbar = () => {
 			</div>
 		</nav>
 	);
+};
+Navbar.propTypes = {
+	match: PropTypes.object
 };

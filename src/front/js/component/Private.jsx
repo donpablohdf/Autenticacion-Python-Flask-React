@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
@@ -14,4 +15,7 @@ export const Private = () => {
         <h1>Private</h1>
         </>
 	);
+};
+Private.propTypes = {
+	match: PropTypes.object
 };

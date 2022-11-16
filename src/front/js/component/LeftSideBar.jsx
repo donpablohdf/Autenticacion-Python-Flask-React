@@ -6,20 +6,16 @@ import { Context } from "../store/appContext";
 export const LeftSideBar = () => {
 	const [itemsMenu, setItemsMenu] = useState(["Cargando"])
 
-	const { store, actions, private_site } = useContext(Context);
-	
+	const { store, actions } = useContext(Context);
+
 	// //llamando a la funcion actions.construirObjeto(objeto)
 
 	useEffect(() => {
 		// Pido a éste una promesa
-		if (!store.hasOwnProperty("sections")) {
-			const traeDatos = () => {
-				return actions.traeDatosAPI('/api/sections', 'sections')
-			}
-
+		if (!store.hasOwnProperty("sections")) { //compruebao si existe en el store
 			const cumplePromesa = () => {
 				return new Promise((resolve, reject) => {
-					resolve(traeDatos()) // prometo que traigo datos del obj
+					resolve(actions.traeDatosAPI('/api/sections', 'sections')) // prometo que traigo datos del obj
 				})
 			}
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos

@@ -113,10 +113,23 @@ export const CardDetail = props => {
 	}
 
 	useEffect(() => {
-		let transDatos = ""
-		transDatos = store[laSeccion]
-		const result = transDatos.filter(item => item.id == elID);
-		filtraDatos(result, laSeccion)
+		if (!store.hasOwnProperty(laSeccion)) { // si NO existe en la store, recojo los datos de la BBDD
+
+			const cumplePromesa = () => {
+				return new Promise((resolve, reject) => {
+					resolve(actions.traeDatosAPI('/api/' + laSeccion, laSeccion)) // prometo que traigo datos del obj
+				})
+			}
+			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos
+				const result = datos.filter(item => item.id == elID);
+				filtraDatos(result, laSeccion)
+			}
+			)
+		} else { //si ya existe usamos lo que hay en el store
+			const result = store[laSeccion].filter(item => item.id == elID);
+			filtraDatos(result, laSeccion)
+
+		}
 
 	}, [laSeccion])
 
