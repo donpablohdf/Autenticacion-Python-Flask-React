@@ -5,6 +5,7 @@ import "../../styles/navBar.css"
 import logo from "/src/front/img/logoStartWars.png"
 import { Login } from "./Login.jsx";
 import { Favorites } from "./Favorites.jsx";
+import { DropdownMenu } from './DropdownMenu.jsx'
 
 
 
@@ -20,7 +21,19 @@ export const Navbar = () => {
 
 			<div className="pl-5 "><Link to="/private" ><button className="btn btn-secondary" type="button">Private Area</button></Link></div>
 
-			
+			<div className="dropdown d-flex flex-row-reverse ">
+				<button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Login</button>
+				<Login />
+			</div>
+
+			<div className="pl-5 "><Link to="/signup" >
+				<button className="btn btn-secondary" type="button">Signup</button></Link>
+			</div>
+
+			<div className="dropdown d-flex flex-row-reverse anchoFijo">
+				<button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Favoritos {n_favs}</button>
+				<Favorites />
+			</div>
 		</nav>
 	);
 };

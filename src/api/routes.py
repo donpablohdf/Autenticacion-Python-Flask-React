@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Films ,FilmsDetail, People, PeopleDetail, Planets, PlanetsDetail, Sections, Species, SpeciesDetail, Starships, StarshipsDetail, Vehicles, VechiclesDetail
+from api.models import db, FilmsDetail, PeopleDetail, PlanetsDetail, Sections, SpeciesDetail, Starships, StarshipsDetail, VechiclesDetail, Users
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -63,6 +63,15 @@ def handle_vehicles():
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200
     return jsonify({"message":"Error al recuperar Vechicles"}), 400
+
+# @api.route('/users', methods=['POST', 'GET'])
+# def handle_users():
+#     tb_data = Users.get_all()
+#     if tb_data:
+#         all_data = [section.serialize() for section in tb_data]
+#         return jsonify(all_data), 200
+#     return jsonify({"message":"Error al recuperar Vechicles"}), 400
+
 
 @api.route('/pruebas', methods=['GET'])
 def handle_pruebas():

@@ -6,8 +6,8 @@ import { Context } from "../store/appContext";
 export const LeftSideBar = () => {
 	const [itemsMenu, setItemsMenu] = useState(["Cargando"])
 
-	const { store, actions } = useContext(Context);
-	// //saber si existe el objeto sections en store y si no crearlo 
+	const { store, actions, private_site } = useContext(Context);
+	
 	// //llamando a la funcion actions.construirObjeto(objeto)
 
 	useEffect(() => {
@@ -23,9 +23,8 @@ export const LeftSideBar = () => {
 				})
 			}
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos
-				console.log(datos)
 				// const convertir = Object.keys(datos)
-				// setItemsMenu(convertir)
+				setItemsMenu(datos)
 
 			}
 			)

@@ -23,6 +23,15 @@ class Users(db.Model):
             "lastname": self.lastname,
             "email": self.email,
         }
+    
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
+
 
 class Sections(db.Model):
 

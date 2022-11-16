@@ -22,7 +22,6 @@ export const CardDetail = props => {
 				})
 				break;
 			case 'people':
-				const linker = datos[0].homeworld
 				setDatosPorSeccion({
 					title: datos[0].name,
 					description:
@@ -34,7 +33,7 @@ export const CardDetail = props => {
 							<li>Eye color: {datos[0].eye_color}</li>
 							<li>Birth year: {datos[0].birth_year}</li>
 							<li>Gender: {datos[0].gender}</li>
-							<li><Link to={"/detail/" + linker}>Home world</Link></li>
+							<li><Link to={"/detail/planets/" + datos[0].homeworld}>Home world</Link></li>
 						</ul>
 				})
 				break;
@@ -55,7 +54,6 @@ export const CardDetail = props => {
 				})
 				break;
 			case 'species':
-				const linker2 = datos[0].homeworld
 				setDatosPorSeccion({
 					title: datos[0].name,
 					description:
@@ -68,7 +66,7 @@ export const CardDetail = props => {
 							<li>Skin colors: {datos[0].skin_colors}</li>
 							<li>Eye colors: {datos[0].eye_colors}</li>
 							<li>Language: {datos[0].language}</li>
-							<li><Link to={"/detail/" + linker2}>Home world</Link></li>
+							<li><Link to={"/detail/planets/" + datos[0].homeworld}>Home world</Link></li>
 						</ul>
 				})
 				break;

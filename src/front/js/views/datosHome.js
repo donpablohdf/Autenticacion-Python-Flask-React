@@ -19,7 +19,7 @@ export const DatosHome = props => {
 		let transDatos = []
 		if (!store.hasOwnProperty(seccion)) {
 			const traeDatos = () => {
-				return actions.traeDatosAPI('https://www.swapi.tech/api/' + seccion, seccion)
+				return actions.traeDatosAPI('/api/' + seccion, seccion)
 			}
 
 			const cumplePromesa = () => {
@@ -29,10 +29,8 @@ export const DatosHome = props => {
 			}
 
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos
-
 				if (seccion === "films") {
-					datosMostrar = datos
-					datosMostrar.map((dato) => {
+					datos.map((dato) => {
 						{
 							newData = {
 								uid: dato.id,
@@ -44,12 +42,12 @@ export const DatosHome = props => {
 						}
 					})
 					setObjDatos(transDatos)
-				} else if (seccion != "") {
-					datosMostrar = datos.results
-					datosMostrar.map((dato) => {
+				}
+				if (seccion != "films") {
+					datos.map((dato) => {
 						{
 
-							newData = { uid: dato.uid, title: dato.name, desc: descripcion }
+							newData = { uid: dato.id, title: dato.name, desc: dato.description }
 							transDatos.push(newData)
 
 						}
@@ -62,8 +60,7 @@ export const DatosHome = props => {
 			)
 		} else {
 			if (seccion === "films") {
-				datosMostrar = store[seccion]
-				datosMostrar.map((dato) => {
+				store[seccion].map((dato) => {
 					{
 						newData = {
 							uid: dato.id,
@@ -71,26 +68,29 @@ export const DatosHome = props => {
 							desc: dato.opening_crawl.slice(0, 90) + "...."
 						}
 						transDatos.push(newData)
+						console.log(dato.id)
 
 					}
 				})
 				setObjDatos(transDatos)
-			} else if (seccion != "") {
-				datosMostrar = store[seccion]
-				datosMostrar.map((dato) => {
+			}
+			if (seccion != "films") {
+				store[seccion].map((dato) => {
 					{
 
 						newData = { uid: dato.id, title: dato.name, desc: dato.description }
 						transDatos.push(newData)
 
 
+
 					}
-				}
-				)
+				})
 				setObjDatos(transDatos)
 			}
 		}
 	}, [seccion, store.favoritos])
+
+
 
 
 	return (
