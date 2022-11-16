@@ -16,7 +16,7 @@ const Layout = () => {
 	// puede establecer el nombre base en el archivo .env ubicado en la raíz de este proyecto, por ejemplo: BASENAME=/subdirectorio-publicacion/
 
 	const basename = process.env.BASENAME || "BASENAME=/";
-	const base_url = process.env.BACKEND_URL || "BACKEND_URL=http://localhost:3001";
+	const base_url = process.env.BACKEND_URL || "BACKEND_URL=https://3001-donpablohdf-blogstarwar-pk5r2map13h.ws-eu74.gitpod.io";
 
 	return (
 		<>
