@@ -4,8 +4,6 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/datosHome.css";
 
-
-
 export const DatosHome = props => {
 	const params = useParams();
 	const seccion = params.seccion

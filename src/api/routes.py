@@ -73,10 +73,10 @@ def handle_vehicles():
 #     return jsonify({"message":"Error al recuperar Vechicles"}), 400
 
 
-@api.route('/pruebas', methods=['GET'])
-def handle_pruebas():
-    sections = Sections.get_all()
-    if sections:
-        all_sections = [section.serialize() for section in sections]
-        return jsonify(all_sections), 200
-    return False, 400
+# @api.route('/pruebas', methods=['GET'])
+# def handle_pruebas():
+#     sections = Sections.get_all()
+#     if sections:
+#         all_sections = [section.serialize() for section in sections]
+#         return jsonify(all_sections), 200
+#     return False, 400
