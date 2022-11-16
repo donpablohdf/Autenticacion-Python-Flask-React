@@ -22,8 +22,25 @@ class Users(db.Model):
             "firstname": self.firstname,
             "lastname": self.lastname,
             "email": self.email,
-            # do not serialize the password, its a security breach
         }
+
+class Sections(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    section = db.Column(db.String(255), unique=False, nullable=True)
+    def __repr__(self):
+        return f'<Sections {self.id}>'
+
+    def serialize(self):
+        return self.section
+        
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class Films(db.Model):
 
@@ -60,6 +77,13 @@ class Films(db.Model):
             "species": [self.species],
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class FilmsDetail(db.Model):
 
@@ -94,6 +118,13 @@ class FilmsDetail(db.Model):
             "species": [self.species],
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class People(db.Model):
 
@@ -111,6 +142,13 @@ class People(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class PeopleDetail(db.Model):
 
@@ -146,6 +184,13 @@ class PeopleDetail(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class Planets(db.Model):
 
@@ -162,6 +207,13 @@ class Planets(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
     
 class PlanetsDetail(db.Model):
 
@@ -197,21 +249,14 @@ class PlanetsDetail(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
         
-class Sections(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    section = db.Column(db.String(255), unique=False, nullable=True)
-    def __repr__(self):
-        return f'<Sections {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "section": self.section,
-            
-        }
-
 class Species(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -227,6 +272,13 @@ class Species(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class SpeciesDetail(db.Model):
 
@@ -266,6 +318,13 @@ class SpeciesDetail(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class Starships(db.Model):
 
@@ -282,6 +341,13 @@ class Starships(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
     
 class StarshipsDetail(db.Model):
 
@@ -327,6 +393,13 @@ class StarshipsDetail(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 
 class Vehicles(db.Model):
 
@@ -344,7 +417,13 @@ class Vehicles(db.Model):
             "url": self.url,
             
         }
-                
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)
 class VechiclesDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -387,3 +466,10 @@ class VechiclesDetail(db.Model):
             "url": self.url,
             
         }
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls,id):
+        return cls.query.get(id)

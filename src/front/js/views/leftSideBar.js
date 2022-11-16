@@ -13,8 +13,8 @@ export const LeftSideBar = () => {
 	useEffect(() => {
 		// Pido a éste una promesa
 		if (!store.hasOwnProperty("sections")) {
-			const traeDatos = () => {//store["sections"] = new Object()
-				return actions.traeDatosAPI('/api/sections')
+			const traeDatos = () => {
+				return actions.traeDatosAPI('/api/sections', 'sections')
 			}
 
 			const cumplePromesa = () => {
@@ -23,24 +23,25 @@ export const LeftSideBar = () => {
 				})
 			}
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos
-				const convertir = Object.keys(datos.result)
-				setItemsMenu(convertir)
+				console.log(datos)
+				// const convertir = Object.keys(datos)
+				// setItemsMenu(convertir)
 
 			}
 			)
 		} else {
-			console.log("Lo coge de la store")
-			const convertir = Object.keys(store.sections.result)
-			setItemsMenu(convertir)
+
+			setItemsMenu(store.sections)
 		}
 	}, [])
+
 
 	return (
 		<div className="me-2 ">
 			<div className="d-inline-flex shadow m-2" >
 				<ul className="dropdown-menu dropdown-menu-dark d-block position-static   shadow w-220px">
 					{
-						itemsMenu?.map
+						itemsMenu.map
 							(
 								(opcion, index) =>
 									<li key={index}>

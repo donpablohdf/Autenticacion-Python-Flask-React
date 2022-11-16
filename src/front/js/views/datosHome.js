@@ -31,13 +31,13 @@ export const DatosHome = props => {
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos
 
 				if (seccion === "films") {
-					datosMostrar = datos.result
+					datosMostrar = datos
 					datosMostrar.map((dato) => {
 						{
 							newData = {
-								uid: dato.uid,
-								title: dato["properties"].title,
-								desc: dato["properties"].opening_crawl.slice(0, 90) + "...."
+								uid: dato.id,
+								title: dato.title,
+								desc: dato.opening_crawl.slice(0, 90) + "...."
 							}
 							transDatos.push(newData)
 
@@ -62,13 +62,13 @@ export const DatosHome = props => {
 			)
 		} else {
 			if (seccion === "films") {
-				datosMostrar = store[seccion].result
+				datosMostrar = store[seccion]
 				datosMostrar.map((dato) => {
 					{
 						newData = {
-							uid: dato.uid,
-							title: dato["properties"].title,
-							desc: dato["properties"].opening_crawl.slice(0, 90) + "...."
+							uid: dato.id,
+							title: dato.title,
+							desc: dato.opening_crawl.slice(0, 90) + "...."
 						}
 						transDatos.push(newData)
 
@@ -76,11 +76,11 @@ export const DatosHome = props => {
 				})
 				setObjDatos(transDatos)
 			} else if (seccion != "") {
-				datosMostrar = store[seccion].results
+				datosMostrar = store[seccion]
 				datosMostrar.map((dato) => {
 					{
 
-						newData = { uid: dato.uid, title: dato.name, desc: descripcion }
+						newData = { uid: dato.id, title: dato.name, desc: dato.description }
 						transDatos.push(newData)
 
 

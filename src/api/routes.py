@@ -2,24 +2,72 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Users, Films
+from api.models import db, Films ,FilmsDetail, People, PeopleDetail, Planets, PlanetsDetail, Sections, Species, SpeciesDetail, Starships, StarshipsDetail, Vehicles, VechiclesDetail
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+@api.route('/sections', methods=['POST', 'GET'])
+def handle_sections():
+    sections = Sections.get_all()
+    if sections:
+        all_sections = [section.serialize() for section in sections]
+        return jsonify(all_sections), 200
+    return jsonify({"message":"Error al recuperar Sections"}), 400
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
+@api.route('/films', methods=['POST', 'GET'])
+def handle_films():
+    tb_data = FilmsDetail.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar Films"}), 400
 
-    return jsonify(response_body), 200
+@api.route('/people', methods=['POST', 'GET'])
+def handle_people():
+    tb_data = PeopleDetail.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar People"}), 400
 
-# @api.route('/films', methods=['GET'])
-# def handle_hello():
+@api.route('/planets', methods=['POST', 'GET'])
+def handle_planets():
+    tb_data = PlanetsDetail.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar Planets"}), 400
 
-#     admin.add_view(ModelView(Films, db.session))
+@api.route('/species', methods=['POST', 'GET'])
+def handle_species():
+    tb_data = SpeciesDetail.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar Species"}), 400
 
-#     return jsonify(response_body), 200
+@api.route('/starships', methods=['POST', 'GET'])
+def handle_starships():
+    tb_data = StarshipsDetail.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar Starships"}), 400
+
+@api.route('/vehicles', methods=['POST', 'GET'])
+def handle_vehicles():
+    tb_data = VechiclesDetail.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar Vechicles"}), 400
+
+@api.route('/pruebas', methods=['GET'])
+def handle_pruebas():
+    sections = Sections.get_all()
+    if sections:
+        all_sections = [section.serialize() for section in sections]
+        return jsonify(all_sections), 200
+    return False, 400
