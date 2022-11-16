@@ -4406,7 +4406,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			traeDatosAPI: async (url, destino) => {
 				// para meter los datos de la API
 				try {
-					const resp = await fetch('http://localhost:3001' + url)
+					
+					const resp = await fetch(process.env.BACKEND_URL + url)
+					//const resp = await fetch('http://localhost:3001' + url)
 					const data = await resp.json()
 					let llenar = {}
 					llenar[destino] = data
