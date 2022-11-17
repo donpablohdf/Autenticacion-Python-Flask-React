@@ -8,10 +8,6 @@ from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
 
-@api.route('/styles')
-def get_data():
-  return api.send_static_file('python.css')
-
 @api.route('/sections', methods=['POST', 'GET'])
 def handle_sections():
     sections = Sections.get_all()

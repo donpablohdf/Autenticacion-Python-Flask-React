@@ -1,3 +1,4 @@
+import os
 from flask import jsonify, url_for
 
 class APIException(Exception):
@@ -20,13 +21,34 @@ def has_no_empty_params(rule):
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
 
+css_file= os.getenv("CSS_PYTHON")
+print(css_file)
 head_html= """<!DOCTYPE html>
 <html class="h-100">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <title>API STARWARS</title>
-        <link href="https://github.com/donpablohdf/blog-starwars-FLASK/blob/main/src/front/styles/python.css" rel="stylesheet">
+        <style>
+            #app{
+                background-image: url(https://logos-download.com/wp-content/uploads/2016/09/Star_Wars_logo-1.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-attachment: fixed;
+                background-position: center;
+            }
+            
+            #app::before{
+                content: "";
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                bottom: 0px;
+                left: 0px;
+                background-color: rgba(4, 0, 255,0.20);
+            }
+        </style>
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
@@ -55,13 +77,14 @@ def generate_sitemap(app):
             if "/admin/" not in url:
                 links.append(url)
 
-    links_html = "".join(["<a class='list-group-item list-group-item-action bg-warning' href='" + y + "'>" + y + "</a>" for y in links])
+    links_html = "".join(["<div class='list-group-item list-group-item-action text-warning'><i class='fab fa-galactic-republic fa-2x me-3 p-0'></i><a class='text-dark text-decoration-none p-0 m-0' href='" + y + "'>" + y.replace("/api/","").capitalize() + "</a></div>" for y in links])
     return head_html+"""
-    <div class="container-fluid d-flex justify-content-center">
-        <div >
-            <div class="d-flex justify-content-center"><h1>STAR WARS API</h1></div>
-            <div><h6>API HOSTS:</h6></div>
-            <div class="list-group bg-warning">"""\
+    
+    <div class="container-fluid d-flex justify-content-center ">
+        <div class="m-3" >
+            <div class="d-flex justify-content-center flex-nowrap text-warning bg-dark p-4 border border-warning rounded"><i class="fab fa-old-republic fa-4x "></i><h1 class="ms-2 pt-2">STAR WARS API</h1></div>
+            <h6 class="text-light bg-dark p-3 mt-3 border border-warning rounded">API HOSTS:</h6>
+            <div class="list-group">"""\
                 +links_html+"""
             </div>
         </div>
