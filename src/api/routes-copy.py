@@ -64,13 +64,13 @@ def handle_vehicles():
         return jsonify(all_data), 200
     return jsonify({"message":"Error al recuperar Vechicles"}), 400
 
-# @api.route('/users', methods=['POST', 'GET'])
-# def handle_users():
-#     tb_data = Users.get_all()
-#     if tb_data:
-#         all_data = [section.serialize() for section in tb_data]
-#         return jsonify(all_data), 200
-#     return jsonify({"message":"Error al recuperar Vechicles"}), 400
+@api.route('/users', methods=['POST', 'GET'])
+def handle_users():
+    tb_data = Users.get_all()
+    if tb_data:
+        all_data = [section.serialize() for section in tb_data]
+        return jsonify(all_data), 200
+    return jsonify({"message":"Error al recuperar Vechicles"}), 400
 
 
 # @api.route('/pruebas', methods=['GET'])

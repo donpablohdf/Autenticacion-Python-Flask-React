@@ -30,7 +30,6 @@ head_html= """<!DOCTYPE html>
         <meta charset="UTF-8">
         <title>API STARWARS</title>
         <style>
-            
             #datos{
                 background-image: url(https://logos-download.com/wp-content/uploads/2016/09/Star_Wars_logo-1.png);
                 background-repeat: no-repeat;
@@ -38,17 +37,6 @@ head_html= """<!DOCTYPE html>
                 
                 background-position: center;
             }
-            
-            #datos::before{
-                content: "";
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                bottom: 0px;
-                left: 0px;
-                background-color: rgba(4, 0, 255,0.20);
-            }
-            
         </style>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -63,7 +51,6 @@ head_html= """<!DOCTYPE html>
     """
 
 footer_html="""
-
     </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
@@ -80,8 +67,9 @@ def generate_sitemap(app):
             url = url_for(rule.endpoint, **(rule.defaults or {}))
             if "/admin/" not in url:
                 links.append(url)
-
+    links.pop()
     links_html = "".join(["<div class='list-group-item list-group-item-action text-warning'><i class='fab fa-galactic-republic fa-2x me-3 p-0'></i><a target='datos' class='text-dark text-decoration-none p-0 m-0 fs-4' href='" +y+ "' target='datos' >" + y.replace("/api/","").capitalize() + "</a></div>" for y in links])
+    
     return head_html+"""
     
     <div class="d-flex bg-light">
@@ -94,7 +82,7 @@ def generate_sitemap(app):
                 +links_html+"""
             </div>
         </div> 
-        <div class="m-3 border col-8 d-flex"><object id="datos" name="datos" type="text/json" width="100%" height="100%" data="http://localhost:3001/api/sections"></object></div>  
+        <div class="m-3 border col d-flex"><object id="datos" name="datos" type="text/json" width="100%" height="100%" data="http://localhost:3001/api/sections"></object></div>  
     </div>
     
     """\

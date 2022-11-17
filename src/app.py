@@ -8,17 +8,47 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from dotenv import load_dotenv
 from api.utils import APIException, generate_sitemap
+
 from api.models import db
-from api.routes import api
+# Add separate routes in routes directory
+from api.routes.sections import *
+from api.routes.films import *
+from api.routes.people import *
+from api.routes.planets import *
+from api.routes.species import *
+from api.routes.starships import *
+from api.routes.vehicles import *
+from api.routes.users import *
+from api.routes.vehicles import *
+from api.routes.login import *
+
 from api.admin import setup_admin
 from api.commands import setup_commands
 
-#from models import Person
 
 ENV = os.getenv("FLASK_DEBUG")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+api = Blueprint('api', __name__)
+# Add all endpoints form the API with a "api" prefix
+app.register_blueprint(api, url_prefix='/api')
+
+# Add separate routes in routes directory
+app.register_blueprint(r_sections, url_prefix="/api")
+app.register_blueprint(r_films, url_prefix="/api")
+app.register_blueprint(r_people, url_prefix="/api")
+app.register_blueprint(r_planets, url_prefix="/api")
+app.register_blueprint(r_species, url_prefix="/api")
+app.register_blueprint(r_starships, url_prefix="/api")
+app.register_blueprint(r_users, url_prefix="/api")
+app.register_blueprint(r_vehicles, url_prefix="/api")
+# app.register_blueprint(r_login, url_prefix="/api")
+# app.register_blueprint(r_films, url_prefix="/api")
+# app.register_blueprint(r_films, url_prefix="/api")
+
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -39,9 +69,6 @@ setup_admin(app)
 
 # add the admin
 setup_commands(app)
-
-# Add all endpoints form the API with a "api" prefix
-app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
