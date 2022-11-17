@@ -49,6 +49,8 @@ const MyComponentSuper = () => {
 
 ### Back-End Manual Installation:
 
+$ export DATABASE_URL="postgresql://username:password@localhost/mydatabase"
+
 It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
 
 1. Install the python packages: `$ pipenv install`
