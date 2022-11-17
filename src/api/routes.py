@@ -2,11 +2,15 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from requests import get
 from api.models import db, Films, People, Planets, Sections, Species, Starships, Starships, Vechicles, Users
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
 
+@api.route('/styles')
+def get_data():
+  return api.send_static_file('python.css')
 
 @api.route('/sections', methods=['POST', 'GET'])
 def handle_sections():

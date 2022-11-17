@@ -20,8 +20,33 @@ def has_no_empty_params(rule):
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
 
+head_html= """<!DOCTYPE html>
+<html class="h-100">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>API STARWARS</title>
+        <link href="https://github.com/donpablohdf/blog-starwars-FLASK/blob/main/src/front/styles/python.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        
+    <body class="h-100"><div id="app" class="h-100">"""
+
+footer_html="""</div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    </body>
+</html>"""
+
 def generate_sitemap(app):
-    links = ['/admin/']
+    links = []
     for rule in app.url_map.iter_rules():
         # Filter out rules we can't navigate to in a browser
         # and rules that require parameters
@@ -30,9 +55,16 @@ def generate_sitemap(app):
             if "/admin/" not in url:
                 links.append(url)
 
-    links_html = "".join(["<li><a href='" + y + "'>" + y + "</a></li>" for y in links])
-    return """
-        <div style="text-align: center;">       
-        <h1>Bienvenido al API</h1>
-        <p>API HOST: <script>document.write('<input style="padding: 5px; width: 300px" type="text" value="'+window.location.href+'" />');</script></p>
-        <ul style="text-align: center;">"""+links_html+"</ul></div>"""
+    links_html = "".join(["<a class='list-group-item list-group-item-action bg-warning' href='" + y + "'>" + y + "</a>" for y in links])
+    return head_html+"""
+    <div class="container-fluid d-flex justify-content-center">
+        <div >
+            <div class="d-flex justify-content-center"><h1>STAR WARS API</h1></div>
+            <div><h6>API HOSTS:</h6></div>
+            <div class="list-group bg-warning">"""\
+                +links_html+"""
+            </div>
+        </div>
+    </div>
+    """\
+        +footer_html

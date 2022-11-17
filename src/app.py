@@ -52,7 +52,6 @@ def handle_invalid_usage(error):
 @app.route('/')
 def sitemap():
     if ENV=="development":
-        print("dsfsd")
         return generate_sitemap(app)
     return send_from_directory(static_file_dir, 'index.html')
 
