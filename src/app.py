@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
+from dotenv import load_dotenv
 from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api
@@ -14,7 +15,7 @@ from api.commands import setup_commands
 
 #from models import Person
 
-ENV = os.getenv("FLASK_ENV")
+ENV = os.getenv("FLASK_DEBUG")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -50,7 +51,8 @@ def handle_invalid_usage(error):
 # generate sitemap with all your endpoints
 @app.route('/')
 def sitemap():
-    if ENV == "development":
+    if ENV=="development":
+        print("dsfsd")
         return generate_sitemap(app)
     return send_from_directory(static_file_dir, 'index.html')
 
@@ -66,5 +68,6 @@ def serve_any_other_file(path):
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
+    load_dotenv()
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)

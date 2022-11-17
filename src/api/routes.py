@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, FilmsDetail, PeopleDetail, PlanetsDetail, Sections, SpeciesDetail, Starships, StarshipsDetail, VechiclesDetail, Users
+from api.models import db, Films, People, Planets, Sections, Species, Starships, Starships, Vechicles, Users
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -18,7 +18,7 @@ def handle_sections():
 
 @api.route('/films', methods=['POST', 'GET'])
 def handle_films():
-    tb_data = FilmsDetail.get_all()
+    tb_data = Films.get_all()
     if tb_data:
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200
@@ -26,7 +26,7 @@ def handle_films():
 
 @api.route('/people', methods=['POST', 'GET'])
 def handle_people():
-    tb_data = PeopleDetail.get_all()
+    tb_data = People.get_all()
     if tb_data:
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200
@@ -34,7 +34,7 @@ def handle_people():
 
 @api.route('/planets', methods=['POST', 'GET'])
 def handle_planets():
-    tb_data = PlanetsDetail.get_all()
+    tb_data = Planets.get_all()
     if tb_data:
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200
@@ -42,7 +42,7 @@ def handle_planets():
 
 @api.route('/species', methods=['POST', 'GET'])
 def handle_species():
-    tb_data = SpeciesDetail.get_all()
+    tb_data = Species.get_all()
     if tb_data:
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200
@@ -50,7 +50,7 @@ def handle_species():
 
 @api.route('/starships', methods=['POST', 'GET'])
 def handle_starships():
-    tb_data = StarshipsDetail.get_all()
+    tb_data = Starships.get_all()
     if tb_data:
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200
@@ -58,7 +58,7 @@ def handle_starships():
 
 @api.route('/vehicles', methods=['POST', 'GET'])
 def handle_vehicles():
-    tb_data = VechiclesDetail.get_all()
+    tb_data = Vechicles.get_all()
     if tb_data:
         all_data = [section.serialize() for section in tb_data]
         return jsonify(all_data), 200

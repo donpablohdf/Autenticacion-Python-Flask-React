@@ -33,8 +33,6 @@ class Users(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-
-
 class Sections(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +50,6 @@ class Sections(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-
 class Films(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -62,13 +59,11 @@ class Films(db.Model):
     episode_id = db.Column(db.String(255), unique=False, nullable=True)
     director = db.Column(db.String(255), unique=False, nullable=True)
     opening_crawl = db.Column(db.Text, unique=False, nullable=True)
-
     characters = db.Column(db.Text, unique=False, nullable=True)
     planets = db.Column(db.Text, unique=False, nullable=True)
     starships = db.Column(db.Text, unique=False, nullable=True)
     vehicles = db.Column(db.Text, unique=False, nullable=True)
     species = db.Column(db.Text, unique=False, nullable=True)
-
     def __repr__(self):
         return f'<Films {self.id}>'
 
@@ -95,73 +90,7 @@ class Films(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-
-class FilmsDetail(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(255), unique=False, nullable=True)
-    producer = db.Column(db.String(255), unique=False, nullable=True)
-    title = db.Column(db.String(255), unique=False, nullable=True)
-    episode_id = db.Column(db.String(255), unique=False, nullable=True)
-    director = db.Column(db.String(255), unique=False, nullable=True)
-    opening_crawl = db.Column(db.Text, unique=False, nullable=True)
-    characters = db.Column(db.Text, unique=False, nullable=True)
-    planets = db.Column(db.Text, unique=False, nullable=True)
-    starships = db.Column(db.Text, unique=False, nullable=True)
-    vehicles = db.Column(db.Text, unique=False, nullable=True)
-    species = db.Column(db.Text, unique=False, nullable=True)
-    def __repr__(self):
-        return f'<FilmsDetail {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "description": self.description,
-            "producer": self.producer,
-            "title": self.title,
-            "episode_id": self.episode_id,
-            "director": self.director,
-            "opening_crawl": self.opening_crawl,
-            "characters": [self.director],
-            "planets": [self.planets],
-            "starships": [self.starships],
-            "vehicles": [self.vehicles],
-            "species": [self.species],
-            
-        }
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
-
-    @classmethod
-    def get_by_id(cls,id):
-        return cls.query.get(id)
-
 class People(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=True)
-    url = db.Column(db.String(255), unique=False, nullable=True)
-
-    def __repr__(self):
-        return f'<People {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "url": self.url,
-            
-        }
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
-
-    @classmethod
-    def get_by_id(cls,id):
-        return cls.query.get(id)
-
-class PeopleDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
@@ -177,7 +106,7 @@ class PeopleDetail(db.Model):
     url = db.Column(db.String(255), unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<PeopleDetail {self.id}>'
+        return f'<People {self.id}>'
 
     def serialize(self):
         return {
@@ -202,31 +131,7 @@ class PeopleDetail(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-
 class Planets(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=True)
-    url = db.Column(db.String(255), unique=False, nullable=True)
-    def __repr__(self):
-        return f'<Planets {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "url": self.url,
-            
-        }
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
-
-    @classmethod
-    def get_by_id(cls,id):
-        return cls.query.get(id)
-    
-class PlanetsDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
@@ -242,7 +147,7 @@ class PlanetsDetail(db.Model):
     url = db.Column(db.String(255), unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<PlanetsDetail {self.id}>'
+        return f'<Planets {self.id}>'
 
     def serialize(self):
         return {
@@ -267,31 +172,7 @@ class PlanetsDetail(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-        
 class Species(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=True)
-    url = db.Column(db.String(255), unique=False, nullable=True)
-    def __repr__(self):
-        return f'<Species {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "url": self.url,
-            
-        }
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
-
-    @classmethod
-    def get_by_id(cls,id):
-        return cls.query.get(id)
-
-class SpeciesDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
@@ -309,7 +190,7 @@ class SpeciesDetail(db.Model):
     url = db.Column(db.String(255), unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<SpeciesDetail {self.id}>'
+        return f'<Species {self.id}>'
 
     def serialize(self):
         return {
@@ -336,31 +217,7 @@ class SpeciesDetail(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-
 class Starships(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=True)
-    url = db.Column(db.String(255), unique=False, nullable=True)
-    def __repr__(self):
-        return f'<Starships {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "url": self.url,
-            
-        }
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
-
-    @classmethod
-    def get_by_id(cls,id):
-        return cls.query.get(id)
-    
-class StarshipsDetail(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
@@ -381,7 +238,7 @@ class StarshipsDetail(db.Model):
     url = db.Column(db.String(255), unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<StarshipsDetail {self.id}>'
+        return f'<Starships {self.id}>'
 
     def serialize(self):
         return {
@@ -412,7 +269,7 @@ class StarshipsDetail(db.Model):
     def get_by_id(cls,id):
         return cls.query.get(id)
 
-class Vehicles(db.Model):
+
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=False, nullable=True)
@@ -435,7 +292,7 @@ class Vehicles(db.Model):
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get(id)
-class VechiclesDetail(db.Model):
+class Vechicles(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
@@ -455,7 +312,7 @@ class VechiclesDetail(db.Model):
     url = db.Column(db.String(255), unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<VechiclesDetail {self.id}>'
+        return f'<Vechicles {self.id}>'
 
     def serialize(self):
         return {

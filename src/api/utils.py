@@ -35,4 +35,4 @@ def generate_sitemap(app):
         <div style="text-align: center;">       
         <h1>Bienvenido al API</h1>
         <p>API HOST: <script>document.write('<input style="padding: 5px; width: 300px" type="text" value="'+window.location.href+'" />');</script></p>
-        <ul style="text-align: left;">"""+links_html+"</ul></div>"""
+        <ul style="text-align: center;">"""+links_html+"</ul></div>"""
