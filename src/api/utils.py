@@ -30,15 +30,16 @@ head_html= """<!DOCTYPE html>
         <meta charset="UTF-8">
         <title>API STARWARS</title>
         <style>
-            #app{
+            
+            #datos{
                 background-image: url(https://logos-download.com/wp-content/uploads/2016/09/Star_Wars_logo-1.png);
                 background-repeat: no-repeat;
-                background-size: contain;
-                background-attachment: fixed;
+                background-size: 40%;
+                
                 background-position: center;
             }
             
-            #app::before{
+            #datos::before{
                 content: "";
                 position: absolute;
                 top: 0px;
@@ -47,6 +48,7 @@ head_html= """<!DOCTYPE html>
                 left: 0px;
                 background-color: rgba(4, 0, 255,0.20);
             }
+            
         </style>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -54,13 +56,15 @@ head_html= """<!DOCTYPE html>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         
-    <body class="h-100"><div id="app" class="h-100">"""
-
-footer_html="""</div>
+    <body class="h-100">
+    <div class="h-100">
         
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-            crossorigin="anonymous"></script>
+
+    """
+
+footer_html="""
+
+    </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
@@ -77,17 +81,21 @@ def generate_sitemap(app):
             if "/admin/" not in url:
                 links.append(url)
 
-    links_html = "".join(["<div class='list-group-item list-group-item-action text-warning'><i class='fab fa-galactic-republic fa-2x me-3 p-0'></i><a class='text-dark text-decoration-none p-0 m-0' href='" + y + "'>" + y.replace("/api/","").capitalize() + "</a></div>" for y in links])
+    links_html = "".join(["<div class='list-group-item list-group-item-action text-warning'><i class='fab fa-galactic-republic fa-2x me-3 p-0'></i><a target='datos' class='text-dark text-decoration-none p-0 m-0 fs-4' href='" +y+ "' target='datos' >" + y.replace("/api/","").capitalize() + "</a></div>" for y in links])
     return head_html+"""
     
-    <div class="container-fluid d-flex justify-content-center ">
-        <div class="m-3" >
-            <div class="d-flex justify-content-center flex-nowrap text-warning bg-dark p-4 border border-warning rounded"><i class="fab fa-old-republic fa-4x "></i><h1 class="ms-2 pt-2">STAR WARS API</h1></div>
+    <div class="d-flex bg-light">
+        
+        <div class="m-3 col-3" >
+        
+            <div class="d-flex justify-content-center flex-nowrap bg-dark text-warning p-4 border border-warning rounded"><i class="fab fa-old-republic fa-4x "></i><h1 class="ms-2 pt-2">STAR WARS API</h1></div>
             <h6 class="text-light bg-dark p-3 mt-3 border border-warning rounded">API HOSTS:</h6>
             <div class="list-group">"""\
                 +links_html+"""
             </div>
-        </div>
+        </div> 
+        <div class="m-3 border col-8 d-flex"><object id="datos" name="datos" type="text/json" width="100%" height="100%" data="http://localhost:3001/api/sections"></object></div>  
     </div>
+    
     """\
         +footer_html
