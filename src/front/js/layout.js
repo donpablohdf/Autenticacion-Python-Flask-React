@@ -8,11 +8,10 @@ import { DatosHome } from './views/DatosHome.jsx';
 
 import { Navbar } from './component/Navbar.jsx';
 import { LeftSideBar } from './component/LeftSideBar.jsx';
-import { Signup } from './component/Signup.jsx'
+import Signup from './component/Signup.jsx'
 import { Private } from './component/Private.jsx'
 
 const Layout = () => {
-	// const basename se usa cuando su proyecto se publica en un subdirectorio y no en la raíz del dominio
 	// puede establecer el nombre base en el archivo .env ubicado en la raíz de este proyecto, por ejemplo: BASENAME=/subdirectorio-publicacion/
 
 	const basename = process.env.BASENAME || "BASENAME=/";

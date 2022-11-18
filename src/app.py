@@ -55,6 +55,7 @@ app.register_blueprint(r_species, url_prefix="/api")
 app.register_blueprint(r_starships, url_prefix="/api")
 app.register_blueprint(r_users, url_prefix="/api")
 app.register_blueprint(r_vehicles, url_prefix="/api")
+
 app.register_blueprint(r_login, url_prefix="/api")
 app.register_blueprint(r_private, url_prefix="/api")
 app.register_blueprint(r_signup, url_prefix="/api")

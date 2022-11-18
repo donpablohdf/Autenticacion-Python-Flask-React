@@ -1,6 +1,6 @@
 const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 	return {
-		private_site: {
+		private_area: {
 			users: [
 				{
 					"email": "prueba",
@@ -26,12 +26,30 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 			traeDatosAPI: async (url, destino) => {
 				// para meter los datos de la API
 				try {
-
 					const resp = await fetch(process.env.BACKEND_URL + url)
 					const data = await resp.json()
 					let llenar = {}
 					llenar[destino] = data
 					setStore(llenar)
+					return data
+				} catch (error) {
+					return false
+				}
+
+			},
+			solicitudesAPI: async (inc, call, formu) => {
+				const datos = JSON.stringify(formu)
+
+				// console.log(inc);
+				// console.log(call);
+				// console.log(datos)
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + inc, {
+						method: call,
+						headers: { "Content-Type": "application/json" },
+						body: datos
+					})
+					const data = await resp.json()
 					return data
 				} catch (error) {
 					return false

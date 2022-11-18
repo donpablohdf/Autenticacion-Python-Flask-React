@@ -320,7 +320,7 @@ class Starships(db.Model):
         return cls.query.get(id)
 
 
-class Vechicles(db.Model):
+class Vehicles(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
@@ -341,7 +341,7 @@ class Vechicles(db.Model):
     url = db.Column(db.String(255), unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<Vechicles {self.id}>'
+        return f'<Vehicles {self.id}>'
 
     def serialize(self):
         return {
