@@ -52,7 +52,7 @@ export const DatosHome = props => {
 
 			const cumplePromesa = () => {
 				return new Promise((resolve, reject) => {
-					resolve(actions.traeDatosAPI('/api/' + seccion, seccion)) // prometo que traigo datos del obj
+					resolve(actions.dataFromAPI('/api/' + seccion, seccion)) // prometo que traigo datos del obj
 				})
 			}
 

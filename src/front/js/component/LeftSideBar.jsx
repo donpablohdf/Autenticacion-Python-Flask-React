@@ -15,7 +15,7 @@ export const LeftSideBar = () => {
 		if (!store.hasOwnProperty("sections")) { //compruebao si existe en el store
 			const cumplePromesa = () => {
 				return new Promise((resolve, reject) => {
-					resolve(actions.traeDatosAPI('/api/sections', 'sections')) // prometo que traigo datos del obj
+					resolve(actions.dataFromAPI('/api/sections', 'sections')) // prometo que traigo datos del obj
 				})
 			}
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos

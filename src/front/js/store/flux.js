@@ -23,17 +23,22 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			traeDatosAPI: async (url, destino) => {
+			dataFromAPI: async (url, destino) => {
 				// para meter los datos de la API
-				try {
-					const resp = await fetch(process.env.BACKEND_URL + url)
-					const data = await resp.json()
-					let llenar = {}
-					llenar[destino] = data
-					setStore(llenar)
-					return data
-				} catch (error) {
-					return false
+				const store = getStore()
+				if (!store.hasOwnProperty(destino)) {
+					try {
+						const resp = await fetch(process.env.BACKEND_URL + url)
+						const data = await resp.json()
+						let llenar = {}
+						llenar[destino] = data
+						setStore(llenar)
+						return data
+					} catch (error) {
+						return false
+					}
+				} else {
+					return store[destino]
 				}
 
 			},
@@ -48,7 +53,7 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 					body: datos
 				}).then((resp) => resp.json()).then((data) => {
-					console.log(data)
+
 					return data
 				}).catch((error) => {
 					console.log('Hubo un problema con la petición Fetch:' + error.message);
@@ -82,5 +87,4 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 		}
 	};
 };
-
 export default getState;

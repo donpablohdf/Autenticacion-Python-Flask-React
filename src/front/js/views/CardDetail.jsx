@@ -117,7 +117,7 @@ export const CardDetail = props => {
 
 			const cumplePromesa = () => {
 				return new Promise((resolve, reject) => {
-					resolve(actions.traeDatosAPI('/api/' + laSeccion, laSeccion)) // prometo que traigo datos del obj
+					resolve(actions.dataFromAPI('/api/' + laSeccion, laSeccion)) // prometo que traigo datos del obj
 				})
 			}
 			cumplePromesa().then((datos) => { // la promesa se cumple y muestro los datos
