@@ -43,18 +43,16 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 				// console.log(inc);
 				// console.log(call);
 				// console.log(datos)
-				try {
-					const resp = await fetch(process.env.BACKEND_URL + inc, {
-						method: call,
-						headers: { "Content-Type": "application/json" },
-						body: datos
-					})
-					const data = await resp.json()
+				await fetch(process.env.BACKEND_URL + inc, {
+					method: call,
+					headers: { "Content-Type": "application/json" },
+					body: datos
+				}).then((resp) => resp.json()).then((data) => {
+					console.log(data)
 					return data
-				} catch (error) {
-					return false
-				}
-
+				}).catch((error) => {
+					console.log('Hubo un problema con la petición Fetch:' + error.message);
+				})
 			},
 			addFavorite: (secc, uid, atitle) => {
 				const store = getStore()

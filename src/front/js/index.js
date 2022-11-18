@@ -12,7 +12,7 @@ import Layout from "./layout";
 //ReactDOM.render(, document.querySelector("#app"));
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(
-    <React.StrictMode>
-        <Layout />
-    </React.StrictMode>
+
+    <Layout />
+
 );
