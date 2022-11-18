@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.String(100), unique=True, nullable=False)
@@ -15,7 +16,7 @@ class Users(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'<Users {self.email}>'
+        return f'<Users {self.username}>'
 
     def serialize(self):
         return {
@@ -27,31 +28,40 @@ class Users(db.Model):
             "lastname": self.lastname,
             "email": self.email,
         }
-    
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
-class Sections(db.Model):
 
+    @classmethod
+    def get_by_username(cls, username):
+        print(cls.query.get(username))
+        return cls.query.get(username)
+
+
+class Sections(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     section = db.Column(db.String(255), unique=False, nullable=True)
+
     def __repr__(self):
         return f'<Sections {self.id}>'
 
     def serialize(self):
         return self.section
-        
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
+
+
 class Films(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -66,6 +76,7 @@ class Films(db.Model):
     starships = db.Column(db.Text, unique=False, nullable=True)
     vehicles = db.Column(db.Text, unique=False, nullable=True)
     species = db.Column(db.Text, unique=False, nullable=True)
+
     def __repr__(self):
         return f'<Films {self.id}>'
 
@@ -83,15 +94,18 @@ class Films(db.Model):
             "starships": [self.starships],
             "vehicles": [self.vehicles],
             "species": [self.species],
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
+
+
 class People(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -124,15 +138,18 @@ class People(db.Model):
             "name": self.name,
             "homeworld": self.homeworld,
             "url": self.url,
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
+
+
 class Planets(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -165,15 +182,18 @@ class Planets(db.Model):
             "surface_water": self.surface_water,
             "name": self.name,
             "url": self.url,
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
+
+
 class Species(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -210,15 +230,18 @@ class Species(db.Model):
             "homeworld": self.homeworld,
             "people": [self.people],
             "url": self.url,
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
+
+
 class Starships(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -230,7 +253,8 @@ class Starships(db.Model):
     length = db.Column(db.String(255), unique=False, nullable=True)
     crew = db.Column(db.String(255), unique=False, nullable=True)
     passengers = db.Column(db.String(255), unique=False, nullable=True)
-    max_atmosphering_speed = db.Column(db.String(255), unique=False, nullable=True)
+    max_atmosphering_speed = db.Column(
+        db.String(255), unique=False, nullable=True)
     hyperdrive_rating = db.Column(db.String(255), unique=False, nullable=True)
     mglt = db.Column(db.String(255), unique=False, nullable=True)
     cargo_capacity = db.Column(db.String(255), unique=False, nullable=True)
@@ -261,17 +285,16 @@ class Starships(db.Model):
             "pilots": [self.pilots],
             "name": self.name,
             "url": self.url,
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
-
-
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=False, nullable=True)
@@ -285,15 +308,18 @@ class Starships(db.Model):
             "id": self.id,
             "name": self.name,
             "url": self.url,
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
+
+
 class Vechicles(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -305,7 +331,8 @@ class Vechicles(db.Model):
     length = db.Column(db.String(255), unique=False, nullable=True)
     crew = db.Column(db.String(255), unique=False, nullable=True)
     passengers = db.Column(db.String(255), unique=False, nullable=True)
-    max_atmosphering_speed = db.Column(db.String(255), unique=False, nullable=True)
+    max_atmosphering_speed = db.Column(
+        db.String(255), unique=False, nullable=True)
     cargo_capacity = db.Column(db.String(255), unique=False, nullable=True)
     consumables = db.Column(db.String(255), unique=False, nullable=True)
     name = db.Column(db.String(255), unique=False, nullable=True)
@@ -334,12 +361,13 @@ class Vechicles(db.Model):
             "pilots": [self.pilots],
             "name": self.name,
             "url": self.url,
-            
+
         }
+
     @classmethod
     def get_all(cls):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls,id):
+    def get_by_id(cls, id):
         return cls.query.get(id)
