@@ -15,7 +15,6 @@ export const DatosHome = props => {
 	let transDatos = []
 
 	const parseData = (obj, secc) => {
-
 		if (secc === "films") {
 			obj.map((dato) => {
 				{

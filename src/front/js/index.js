@@ -11,8 +11,4 @@ import Layout from "./layout";
 //render your react application
 //ReactDOM.render(, document.querySelector("#app"));
 const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(
-
-    <Layout />
-
-);
+root.render(<Layout />);

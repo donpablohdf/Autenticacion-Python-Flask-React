@@ -42,23 +42,27 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 				}
 
 			},
-			solicitudesAPI: async (inc, call, formu) => {
-				const datos = JSON.stringify(formu)
 
-				// console.log(inc);
-				// console.log(call);
-				// console.log(datos)
-				await fetch(process.env.BACKEND_URL + inc, {
-					method: call,
-					headers: { "Content-Type": "application/json" },
-					body: datos
+
+			solicitudesAPI: async (url, meth, head, bod) => {
+				const body = JSON.stringify(bod)
+				//console.log(url, meth, head, body);
+				await fetch(process.env.BACKEND_URL + url, {
+					method: meth,
+					headers: head,
+					body: body
 				}).then((resp) => resp.json()).then((data) => {
-
+					//console.log(data.token)
+					if (data.token) {
+						localStorage.setItem("jwt-token", data.token)
+					}
 					return data
 				}).catch((error) => {
 					console.log('Hubo un problema con la petición Fetch:' + error.message);
 				})
 			},
+
+
 			addFavorite: (secc, uid, atitle) => {
 				const store = getStore()
 				let esta = false

@@ -1,27 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 
-export const Login = () => {
-	const { store, actions } = useContext(Context);
+const Login = () => {
+	const { actions } = useContext(Context);
+	const token = localStorage.getItem('jwt-token')
+	const [items_py, setitems_py] = useState()
+	if (token) {
+		return (
+			<div className="m-3"><h1 className="bg-danger">Ya hizo login antes</h1></div>
+		)
+	} else {
+		useEffect(() => {
+			const llamada = () => {
+				const url = '/api/login'
+				const method = 'POST'
+				const head = { "Content-Type": "application/json" }
+				//vendrá del formulario
+				let body = { username: "manolito", password: "ito" }
+				setitems_py(() => { actions.solicitudesAPI(url, method, head, body) })
+			}
+			llamada()
+
+		}, [items_py])
+	}
 	return (
-		<>
-			<div className="overflow-visible">
+		<div className="m-3"><h1 className="bg-info">Hizo login</h1></div>
+	)
 
-				<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-					<li className="d-flex flex-row align-items-center">
-						<button type="button" className="btn-close btn-close-width p-3" aria-label="Delete"></button>
-
-					</li>
-
-
-				</ul>
-			</div>
-		</>
-	);
 };
-Login.propTypes = {
-	match: PropTypes.object
-};
+export default Login;

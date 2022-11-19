@@ -2,68 +2,23 @@ import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 
 const Signup = () => {
-	const { store, actions } = useContext(Context);
-	const [items, setItems] = useState(false)
-	const [reloadData, setReloadData] = useState(false);
+	const { actions } = useContext(Context);
+	const [items_sg, setitems_sg] = useState()
 	useEffect(() => {
 		const llamada = () => {
-
 			const url = '/api/signup'
 			const method = 'POST'
 			//viene del formulario
-			let body = { username: "joe", password: "1234" }
-			setItems(() => {
+			let body = { username: "desde_signup_jsx", password: "1234" }
+			setitems_sg(() => {
 				actions.solicitudesAPI(url, method, body)
-				//setReloadData(true)
 			})
-		}
-		const llamada2 = () => {
-			const url = '/api/signup'
-			const method = 'POST'
-			//viene del formulario
-			let body = { username: "joe", password: "1234" }
-			const makeSignup = () => {
-				return new Promise((resolve, reject) => {
-					resolve(
-						actions.solicitudesAPI(url, method, body))
-				})
-			}
-			makeSignup().then((datos) => {
-				setItems(datos)
-				//setReloadData(true)
-			})
-
-		}
-		const llamada3 = () => {
-			try {
-				const url = '/api/signup'
-				const method = 'POST'
-				//viene del formulario
-				let body = { username: "joe", password: "1234" }
-
-				const makeSignup = () => {
-					return new Promise(
-						(resolve, reject) => {
-							resolve(() => {
-								actions.solicitudesAPI(url, method, body)
-							}
-							)
-						}
-					)
-				}
-				makeSignup().then((datos) => { setItems(datos) })
-			}
-			catch {
-				console.log("Error llamada API")
-			}
-
 		}
 		llamada()
-
-		//return () => setReloadData(false)
-
 	}, [])
-	return items
+	return (
+		<div><h1>Se ha creado un usuario </h1></div>
+	)
 
 };
 export default Signup;
