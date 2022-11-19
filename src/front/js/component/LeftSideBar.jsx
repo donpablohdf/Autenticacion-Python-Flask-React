@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { Favorites } from "./Favorites.jsx";
 
 
 export const LeftSideBar = () => {
@@ -8,7 +9,7 @@ export const LeftSideBar = () => {
 
 	const { store, actions } = useContext(Context);
 
-	// //llamando a la funcion actions.construirObjeto(objeto)
+	const n_favs = (store.favoritos).length
 
 	useEffect(() => {
 		// Pido a éste una promesa
@@ -32,23 +33,30 @@ export const LeftSideBar = () => {
 
 
 	return (
-		<div className="me-2 ">
-			<div className="d-inline-flex shadow m-2" >
-				<ul className="dropdown-menu dropdown-menu-dark d-block position-static   shadow w-220px">
-					{
-						itemsMenu.map
-							(
-								(opcion, index) =>
-									<li key={index}>
-										<Link className="dropdown-item d-flex gap-2 align-items-end p-3"
-											to={"/datoshome/" + opcion}>{opcion.toUpperCase()}</Link>
-									</li>
-							)
+		<>
 
-					}
-				</ul>
+			<div className="me-2">
+
+				<div className="d-inline-flex shadow ms-3 mt-3">
+					<ul className="dropdown-menu dropdown-menu-dark d-block position-static shadow w-220px">
+						{itemsMenu.map(
+							(opcion, index) =>
+								<li className="d-flex justify-content-betweenp-0 m-0">
+
+									<Link key={index} className="dropdown-item d-flex gap-2 align-items-end ps-4 py-4" to={"/datoshome/" + opcion}>
+										{/* <i class='fab fa-galactic-republic ms-1 p-0'></i> */}
+										{opcion.toUpperCase()}
+									</Link>
+								</li>
+						)}
+
+					</ul>
+
+				</div>
+
 			</div>
-		</div>
+
+		</>
 	)
 
 };

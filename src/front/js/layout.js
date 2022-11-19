@@ -12,20 +12,25 @@ import Signup from './component/Signup.jsx'
 import { Private } from './component/Private.jsx'
 import Login from "./component/Login.jsx";
 const Layout = () => {
-	// puede establecer el nombre base en el archivo .env ubicado en la raíz de este proyecto, por ejemplo: BASENAME=/subdirectorio-publicacion/
 
 	const basename = process.env.BASENAME || "BASENAME=/";
 
 	return (
 		<>
 			<BrowserRouter basename={basename} >
-				<Navbar />
+				<React.StrictMode>
+					<Navbar />
+				</React.StrictMode>
 				<div className="d-flex">
-					<LeftSideBar />
+					<React.StrictMode>
+						<LeftSideBar />
+					</React.StrictMode>
 					<Routes>
 						<Route path="/" element={<Home />} />
+
 						<Route exact path="/datoshome/:seccion" element={<DatosHome />} />
 						<Route path="/detail/:seccion/:elID" element={<CardDetail />} />
+
 						<Route path="/api/signup" element={<Signup />} />
 						<Route path="/api/private" element={<Private />} />
 						<Route path="/api/login" element={<Login />} />
@@ -34,7 +39,6 @@ const Layout = () => {
 
 					</Routes>
 				</div>
-
 			</BrowserRouter>
 		</>
 	);
