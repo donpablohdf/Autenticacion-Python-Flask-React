@@ -11,6 +11,7 @@ import { LeftSideBar } from './component/LeftSideBar.jsx';
 import Signup from './component/Signup.jsx'
 import { Private } from './component/Private.jsx'
 import Login from "./component/Login.jsx";
+import FormLogin from "./views/FormLogin.jsx";
 const Layout = () => {
 
 	const basename = process.env.BASENAME || "BASENAME=/";
@@ -33,7 +34,8 @@ const Layout = () => {
 
 						<Route path="/api/signup" element={<Signup />} />
 						<Route path="/api/private" element={<Private />} />
-						<Route path="/api/login" element={<Login />} />
+						{/* <Route path="/api/login" element={<Login />} /> */}
+						<Route path="/api/login" element={<FormLogin />} />
 						<Route />
 
 
