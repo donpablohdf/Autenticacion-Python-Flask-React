@@ -9,9 +9,9 @@ function FormLogin() {
 
     const onSubmit = (data, e) => {
         e.preventDefault();
-        //console.log(data)
+        console.log(data)
         reset({ username: '', password: '' })
-        return (< Login body={data} />)
+        //return (< Login body={data} />)
         // // console.log(data);
         // // console.log(watch("newTask"));
     }
