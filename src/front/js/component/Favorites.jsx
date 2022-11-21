@@ -12,7 +12,7 @@ export const Favorites = () => {
 				<ul className="dropdown-menu" aria-labelledby="bt_favoritos">
 					{((store.favoritos).length !== 0) ? store.favoritos.map((dato, index) =>
 						<>
-							{/* <div>{dato.clase}</div> */}
+
 							<li className="d-flex flex-row align-items-center">
 								<Link key={dato.toString()} className="dropdown-item p-1 ms-3 btn btn-secondary" to={"/detail/" + dato.clase + "/" + dato.id}>
 									{dato.title}

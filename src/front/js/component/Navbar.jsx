@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
@@ -7,11 +7,27 @@ import logo from '/src/front/img/logoStartWars.png'
 import { Favorites } from './Favorites.jsx';
 
 
-
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const n_favs = (store.favoritos).length
+	const [items_sg, setitems_sg] = useState()
+	//console.log(store.user_public_id)
 	const token = localStorage.getItem('jwt-token')
+	useEffect(() => {
+		const llamada = async () => {
+			const url = '/api/favorites'
+			const method = 'POST'
+			const head = { "Content-Type": "application/json" }
+			//vendrá del formulario
+			const body = { public_id: store.user_public_id }
+			const datos = await actions.solicitudesAPI(url, method, head, body)
+			setitems_sg(datos)
+
+		}
+		if (token && store.user_public_id) llamada()
+
+	}, [token, store.user_public_id])
+	console.log(items_sg)
 	return (
 		<>
 			<nav className="navbar bg-secondary text-bg-secondary py-3 d-flex justify-content-between sticky-top">

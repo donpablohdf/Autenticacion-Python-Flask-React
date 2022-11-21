@@ -1,25 +1,11 @@
 const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 	return {
-		private_area: {
-			users: [
-				{
-					"email": "prueba",
-					"firstname": "Alegre",
-					"id": 1,
-					"password": "123456",
-					"is_active": true,
-					"lastname": "Juan",
-					"name": "prueba"
-				}
-			],
-			component: ["products", "logout", "favorites"]
-
-		},
 		store: {
 			message: null,
-			user_id: null,
+			user_public_id: null,
 			// se crean arrays de objetos
 			favoritos: [],
+			fav_bbdd: false
 
 		},
 		actions: {
@@ -53,19 +39,23 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 					headers: head,
 					body: body
 				}).then((resp) => resp.json()).then((data) => {
-					//console.log(data.token)
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
-						setStore({ user_id: data.id })
-						//console.log(store.token)
+						setStore({ user_public_id: data.user_public_id })
+						return data
+					} else if (data[1].favs) {
+						setStore({ favoritos: data[1].favs })
+						return data[1].favs
+					} else {
+						return data
 					}
-					return data
+
 				}).catch((error) => {
 					return 'Hubo un problema con la petición Fetch:' + error.message
 				})
 			},
 			logOut: () => {
-				setStore({ token: null })
+				setStore({ user_public_id: null })
 				return true
 			},
 

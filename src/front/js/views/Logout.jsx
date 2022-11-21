@@ -6,7 +6,7 @@ function Logout() {
     const { store, actions } = useContext(Context);
     useEffect(() => {
         //meter favoritos en bbdd
-        console.log(store.favoritos)
+        //console.log(store.favoritos)
         const token = localStorage.removeItem('jwt-token')
         const logout = actions.logOut()
     }, [])

@@ -27,7 +27,7 @@ def login_user():
             access_token = create_access_token(token)
             # print(creado)
             # return create_access_token(token), 200
-            return jsonify({"token": access_token, "id": user.id}), 200
+            return jsonify({"token": access_token, "user_public_id": user.public_id}), 200
             # return make_response({"message": "ok"}), 200
         return make_response('Fallo al verificar usuario',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
     return make_response('Fallo al verificar usuario',  401, {'WWW.Authentication': 'Basic realm: "login required"'})

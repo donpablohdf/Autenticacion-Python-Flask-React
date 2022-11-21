@@ -1,16 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from 'react-router-dom'
 import { Context } from "../store/appContext";
 import { useForm } from 'react-hook-form' // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
-import Login from '../component/Login.jsx';
-//import "./App.css"
 
 function FormLogin() {
 
     const { register, reset, handleSubmit, watch, formState: { errors } } = useForm(); // declaracion para react-hook-form
-    const { store, actions } = useContext(Context);
-    const token = localStorage.getItem('jwt-token')
-    const [items_py, setitems_py] = useState()
+    const { actions } = useContext(Context);
     let history = useNavigate()
     let login = false;
     const onSubmit = (data, e) => {
@@ -22,7 +18,7 @@ function FormLogin() {
         const head = { "Content-Type": "application/json" }
         //vendrá del formulario
 
-        let login = actions.solicitudesAPI(url, method, head, data)
+        login = actions.solicitudesAPI(url, method, head, data)
         if (login) { history("/api/private") }
     }
 
