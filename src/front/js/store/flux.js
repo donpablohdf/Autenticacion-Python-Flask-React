@@ -17,6 +17,7 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 		},
 		store: {
 			message: null,
+			public_id: null,
 			// se crean arrays de objetos
 			favoritos: [],
 
@@ -43,9 +44,9 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 
 			},
 
-
 			solicitudesAPI: async (url, meth, head, bod) => {
 				const body = JSON.stringify(bod)
+				const store = getStore()
 				//console.log(url, meth, head, body);
 				await fetch(process.env.BACKEND_URL + url, {
 					method: meth,
@@ -55,13 +56,18 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 					//console.log(data.token)
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
+						setStore({ public_id: data.public_id })
+						//console.log(store.token)
 					}
 					return data
 				}).catch((error) => {
-					console.log('Hubo un problema con la petición Fetch:' + error.message);
+					return 'Hubo un problema con la petición Fetch:' + error.message
 				})
 			},
-
+			logOut: () => {
+				setStore({ token: null })
+				return true
+			},
 
 			addFavorite: (secc, uid, atitle) => {
 				const store = getStore()

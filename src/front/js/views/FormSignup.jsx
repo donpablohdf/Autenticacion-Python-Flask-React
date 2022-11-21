@@ -1,29 +1,31 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useForm } from 'react-hook-form' // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
-import Login from '../component/Login.jsx';
+import Signup from '../component/Signup.jsx';
 //import "./App.css"
 
-function FormLogin() {
+function FormSignup() {
 
     const { register, reset, handleSubmit, watch, formState: { errors } } = useForm(); // declaracion para react-hook-form
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
     const token = localStorage.getItem('jwt-token')
     const [items_py, setitems_py] = useState()
-    let history = useNavigate()
-    let login = false;
+
     const onSubmit = (data, e) => {
         e.preventDefault();
         // console.log(data)
         // console.log({ username: "manolito", password: "ito" })
-        const url = '/api/login'
+        const url = '/api/signup'
         const method = 'POST'
         const head = { "Content-Type": "application/json" }
         //vendrá del formulario
 
-        let login = actions.solicitudesAPI(url, method, head, data)
-        if (login) { history("/api/private") }
+
+        setitems_py(() => { actions.solicitudesAPI(url, method, head, data) })
+        console.log(items_py)
+        //return (< Login body={data} />)
+        // // console.log(data);
+        // // console.log(watch("newTask"));
     }
 
 
@@ -31,7 +33,7 @@ function FormLogin() {
         <div className="">
 
             <div className='container p-0 m-3 d-flex flex-column bg-light shadow'>
-                <header className='d-flex justify-content-center mt-3'><h1 className='fw-lighter'>LOGIN</h1></header>
+                <header className='d-flex justify-content-center mt-3'><h1 className='fw-lighter'>SIGNUP</h1></header>
                 <section className='d-flex justify-content-center'>
                     <form onSubmit={handleSubmit(onSubmit)} >
                         <div className="d-flex container-fluid flex-column mt-5">
@@ -74,4 +76,4 @@ function FormLogin() {
     )
 }
 
-export default FormLogin;
+export default FormSignup;

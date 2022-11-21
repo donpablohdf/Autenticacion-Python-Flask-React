@@ -11,6 +11,7 @@ import { Favorites } from './Favorites.jsx';
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const n_favs = (store.favoritos).length
+	const token = localStorage.getItem('jwt-token')
 	return (
 		<>
 			<nav className="navbar bg-secondary text-bg-secondary py-3 d-flex justify-content-between sticky-top">
@@ -30,23 +31,38 @@ export const Navbar = () => {
 							<Favorites />
 						</div>
 					</div>
-					<div id="private" className="pl-5 ">
-						<Link to="api/private" >
-							<button className="btn btn-secondary" type="button">Private Area</button>
-						</Link>
-					</div>
 
-					<div id="login" className="pl-5">
-						<Link to="api/login" >
-							<button className="btn btn-secondary" type="button" >Login</button>
-						</Link>
-					</div>
+					{(!token) ? (
+						<>
+							<div id="login" className="pl-5">
+								<Link to="api/login" >
+									<button className="btn btn-secondary" type="button" >Login</button>
+								</Link>
+							</div>
+							< div id="signup" className="pl-5 ">
+								<Link to="api/signup" >
+									<button className="btn btn-secondary" type="button">Signup</button>
+								</Link>
+							</div>
 
-					<div id="signup" className="pl-5 ">
-						<Link to="api/signup" >
-							<button className="btn btn-secondary" type="button">Signup</button>
-						</Link>
-					</div>
+						</>
+					) : (
+						<>
+							<div id="private" className="pl-5 ">
+								<Link to="api/private" >
+									<button className="btn btn-secondary" type="button">Private Area</button>
+								</Link>
+							</div>
+							<div id="logout" className="pl-5 ">
+								<Link to="api/logout" >
+									<button className="btn btn-warning" type="button">Cerrar sesión</button>
+								</Link>
+							</div>
+						</>
+					)}
+
+
+
 				</div>
 
 			</nav>

@@ -13,14 +13,14 @@ r_login = Blueprint('r_login', __name__)
 def login_user():
     data = request.get_json()
     SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
-    print(data, SECRET, data['username'], data['password'])
+    # print(data, SECRET, data['username'], data['password'])
 
     if not data:
         return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
     user = Users.query.filter_by(username=str(data['username'])).first()
     if user:
-        print(user)
+        # print(user)
         if check_password_hash(user.password, data['password']):
             token = jwt.encode({'public_id': user.public_id, 'exp': datetime.datetime.utcnow(
             ) + datetime.timedelta(minutes=20)}, SECRET)

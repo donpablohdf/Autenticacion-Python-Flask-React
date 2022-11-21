@@ -41,9 +41,9 @@ export const LeftSideBar = () => {
 					<ul className="dropdown-menu dropdown-menu-dark d-block position-static shadow w-220px">
 						{itemsMenu.map(
 							(opcion, index) =>
-								<li className="d-flex justify-content-betweenp-0 m-0">
+								<li key={index} className="d-flex justify-content-betweenp-0 m-0">
 
-									<Link key={index} className="dropdown-item d-flex gap-2 align-items-end ps-4 py-4" to={"/datoshome/" + opcion}>
+									<Link className="dropdown-item d-flex gap-2 align-items-end ps-4 py-4" to={"/datoshome/" + opcion}>
 										{/* <i class='fab fa-galactic-republic ms-1 p-0'></i> */}
 										{opcion.toUpperCase()}
 									</Link>
