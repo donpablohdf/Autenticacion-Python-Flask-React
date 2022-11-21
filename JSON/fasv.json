@@ -1,0 +1,19 @@
+{
+    "favs": [
+        {
+            "clase": "films",
+            "encuentra": "films2",
+            "id": 2
+        },
+        {
+            "clase": "films",
+            "encuentra": "films3",
+            "id": 3
+        },
+        {
+            "clase": "films",
+            "encuentra": "films4",
+            "id": 4
+        }
+    ]
+}

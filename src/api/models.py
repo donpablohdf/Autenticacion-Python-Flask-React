@@ -46,23 +46,25 @@ class Users(db.Model):
 
 
 class Favorites(db.Model):
+    __tablename__ = 'favorites'
+
     id = db.Column(db.Integer, primary_key=True)
-    favs = db.Column(db.text, unique=False, nullable=True)
-    user_public_id = db.Column(db.String(255, unique=True, nullable=False))
+    favs = db.Column(db.JSON, unique=False, nullable=True)
+    user_public_id = db.Column(db.String(255), unique=True, nullable=False)
+
+    def __init__(self, favs, user_public_id):
+        self.favs = favs
+        self.user_public_id = user_public_id
 
     def __repr__(self):
-        return f'<Favorites {self.id}>'
+        return f'<Favorito ({self.favs}, {self.user_public_id})>'
 
-    def serialize(self):
+    def __str__(self):
         return self.favs
 
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
-
-    @classmethod
-    def get_by_id(cls, id):
-        return cls.query.get(id)
+    @ classmethod
+    def get_public_id(cls, publicid):
+        return cls.query.filter_by(user_public_id=publicid).first()
 
 
 class Sections(db.Model):
@@ -75,11 +77,11 @@ class Sections(db.Model):
     def serialize(self):
         return self.section
 
-    @classmethod
+    @ classmethod
     def get_all(cls):
         return cls.query.all()
 
-    @classmethod
+    @ classmethod
     def get_by_id(cls, id):
         return cls.query.get(id)
 
