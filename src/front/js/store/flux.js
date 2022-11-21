@@ -17,7 +17,7 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 		},
 		store: {
 			message: null,
-			public_id: null,
+			user_id: null,
 			// se crean arrays de objetos
 			favoritos: [],
 
@@ -56,7 +56,7 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 					//console.log(data.token)
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
-						setStore({ public_id: data.public_id })
+						setStore({ user_id: data.id })
 						//console.log(store.token)
 					}
 					return data

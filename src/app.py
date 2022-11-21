@@ -26,6 +26,7 @@ from api.routes.vehicles import r_vehicles
 from api.routes.private import r_private
 from api.routes.login import r_login
 from api.routes.signup import r_signup
+from api.routes.favorites import r_favorites
 
 
 from api.admin import setup_admin
@@ -59,6 +60,7 @@ app.register_blueprint(r_vehicles, url_prefix="/api")
 app.register_blueprint(r_login, url_prefix="/api")
 app.register_blueprint(r_private, url_prefix="/api")
 app.register_blueprint(r_signup, url_prefix="/api")
+app.register_blueprint(r_favorites, url_prefix="/api")
 
 
 # database condiguration

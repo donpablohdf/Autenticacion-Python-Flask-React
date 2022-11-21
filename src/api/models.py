@@ -2,6 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+# recordar registrar la tabla en app.py
+
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,6 +43,26 @@ class Users(db.Model):
     def get_by_username(cls, username):
         print(cls.query.get(username))
         return cls.query.get(username)
+
+
+class Favorites(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    favs = db.Column(db.text, unique=False, nullable=True)
+    user_public_id = db.Column(db.String(255, unique=True, nullable=False))
+
+    def __repr__(self):
+        return f'<Favorites {self.id}>'
+
+    def serialize(self):
+        return self.favs
+
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls, id):
+        return cls.query.get(id)
 
 
 class Sections(db.Model):
