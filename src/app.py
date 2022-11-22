@@ -42,7 +42,7 @@ app.url_map.strict_slashes = False
 app.config["JWT_HEADER_TYPE"] = "Bearer"
 ACCESS_EXPIRES = timedelta(hours=1)
 app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample key')
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
+#app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 app.config['JWT_BLACKLIST_ENABLED'] = True
 

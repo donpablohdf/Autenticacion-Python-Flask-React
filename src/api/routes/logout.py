@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify, make_response, Blueprint
 from api.models import Favorites
-from api.routes.login import jwt_redis_blocklist, ACCESS_EXPIRES
+#from api.routes.login import jwt_redis_blocklist, ACCESS_EXPIRES
 from datetime import timedelta
 import jwt
 from flask_jwt_extended import get_jwt
