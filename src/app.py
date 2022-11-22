@@ -1,6 +1,3 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
 import os
 from flask import Flask, request, jsonify, url_for, send_from_directory, Blueprint
 from flask_migrate import Migrate
@@ -8,6 +5,8 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from dotenv import load_dotenv
 from api.utils import APIException, generate_sitemap
+from datetime import timedelta
+import redis
 
 # JWT
 from flask_jwt_extended import JWTManager
@@ -27,6 +26,7 @@ from api.routes.private import r_private
 from api.routes.login import r_login
 from api.routes.signup import r_signup
 from api.routes.favorites import r_favorites
+from api.routes.logout import r_logout
 
 
 from api.admin import setup_admin
@@ -36,17 +36,23 @@ from api.commands import setup_commands
 ENV = os.getenv("FLASK_DEBUG")
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
+
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-
 # JWT
 app.config["JWT_HEADER_TYPE"] = "Bearer"
+ACCESS_EXPIRES = timedelta(hours=1)
+app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample key')
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
+app.config['JWT_TOKEN_LOCATION'] = ['headers']
+app.config['JWT_BLACKLIST_ENABLED'] = True
+
 jwt = JWTManager(app)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 api = Blueprint('api', __name__)
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
-
 # Add separate routes in routes directory
 app.register_blueprint(r_sections, url_prefix="/api")
 app.register_blueprint(r_films, url_prefix="/api")
@@ -61,6 +67,7 @@ app.register_blueprint(r_login, url_prefix="/api")
 app.register_blueprint(r_private, url_prefix="/api")
 app.register_blueprint(r_signup, url_prefix="/api")
 app.register_blueprint(r_favorites, url_prefix="/api")
+app.register_blueprint(r_logout, url_prefix="/api")
 
 
 # database condiguration
@@ -69,10 +76,11 @@ if db_url is not None:
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
         "postgres://", "postgresql://")
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
+
 db.init_app(app)
 
 # Allow CORS requests to this API

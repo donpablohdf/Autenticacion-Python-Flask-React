@@ -22,7 +22,7 @@ function FormSignup() {
 
 
         setitems_py(() => { actions.solicitudesAPI(url, method, head, data) })
-        console.log(items_py)
+        //console.log(items_py)
         //return (< Login body={data} />)
         // // console.log(data);
         // // console.log(watch("newTask"));

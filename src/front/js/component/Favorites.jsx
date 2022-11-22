@@ -13,8 +13,8 @@ export const Favorites = () => {
 					{((store.favoritos).length !== 0) ? store.favoritos.map((dato, index) =>
 						<>
 
-							<li className="d-flex flex-row align-items-center">
-								<Link key={dato.toString()} className="dropdown-item p-1 ms-3 btn btn-secondary" to={"/detail/" + dato.clase + "/" + dato.id}>
+							<li key={index} className="d-flex flex-row align-items-center">
+								<Link className="dropdown-item p-1 ms-3 btn btn-secondary" to={"/detail/" + dato.clase + "/" + dato.id}>
 									{dato.title}
 								</Link>
 

@@ -10,7 +10,6 @@ import { Favorites } from './Favorites.jsx';
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const n_favs = (store.favoritos).length
-	const [items_sg, setitems_sg] = useState()
 	//console.log(store.user_public_id)
 	const token = localStorage.getItem('jwt-token')
 	useEffect(() => {
@@ -21,13 +20,13 @@ export const Navbar = () => {
 			//vendrá del formulario
 			const body = { public_id: store.user_public_id }
 			const datos = await actions.solicitudesAPI(url, method, head, body)
-			setitems_sg(datos)
+
 
 		}
 		if (token && store.user_public_id) llamada()
 
 	}, [token, store.user_public_id])
-	console.log(items_sg)
+
 	return (
 		<>
 			<nav className="navbar bg-secondary text-bg-secondary py-3 d-flex justify-content-between sticky-top">

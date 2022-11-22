@@ -41,7 +41,7 @@ class Users(db.Model):
 
     @classmethod
     def get_by_username(cls, username):
-        print(cls.query.get(username))
+        # print(cls.query.get(username))
         return cls.query.get(username)
 
 

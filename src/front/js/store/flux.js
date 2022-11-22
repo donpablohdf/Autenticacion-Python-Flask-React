@@ -31,24 +31,47 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 			},
 
 			solicitudesAPI: async (url, meth, head, bod) => {
+
 				const body = JSON.stringify(bod)
 				const store = getStore()
+				//console.log(body)
+				if (url === '/api/logout') {
+					const token = localStorage.removeItem('jwt-token')
+				}
+
 				//console.log(url, meth, head, body);
 				await fetch(process.env.BACKEND_URL + url, {
 					method: meth,
 					headers: head,
 					body: body
 				}).then((resp) => resp.json()).then((data) => {
+					//console.log(data[1])
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
 						setStore({ user_public_id: data.user_public_id })
 						return data
-					} else if (data[1].favs) {
-						setStore({ favoritos: data[1].favs })
-						return data[1].favs
+					}
+					let datos_bbdd = data[1]
+					if (datos_bbdd) {
+						//console.log(datos_bbdd)
+						if (Object.keys(store.favoritos).length !== 0) {
+							//filtrar un array con otro
+							let ids = new Set(store.favoritos.map(d => d.encuentra))
+							let merged = [...store.favoritos, ...datos_bbdd.filter(d => !ids.has(d.encuentra))]
+							//console.log(merged)
+							setStore({ favoritos: merged })
+							return store.favoritos
+
+						} else {
+							setStore({ favoritos: datos_bbdd })
+							return data
+						}
+
 					} else {
+
 						return data
 					}
+
 
 				}).catch((error) => {
 					return 'Hubo un problema con la petición Fetch:' + error.message
@@ -56,6 +79,7 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 			},
 			logOut: () => {
 				setStore({ user_public_id: null })
+				setStore({ favoritos: [] })
 				return true
 			},
 
