@@ -6,7 +6,6 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from api.utils import APIException, generate_sitemap
 from datetime import timedelta
-import redis
 
 # JWT
 from flask_jwt_extended import JWTManager

@@ -4,16 +4,19 @@ from api.models import Users
 import datetime
 from datetime import timedelta
 import jwt
-import redis
+#import redis
 from werkzeug.security import check_password_hash
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 r_login = Blueprint('r_login', __name__)
 
 ACCESS_EXPIRES = timedelta(hours=1)
-jwt_redis_blocklist = redis.StrictRedis(
-    host="localhost", port=6379, db=0, decode_responses=True
-)
+
+# if you use redis server pof jwt-token uncomment bellow
+
+# jwt_redis_blocklist = redis.StrictRedis(
+#     host="localhost", port=6379, db=0, decode_responses=True
+# )
 
 
 @r_login.route('/login', methods=['POST', 'GET'])
