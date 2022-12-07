@@ -6,7 +6,7 @@ You can update the `styles/index.scss` or create new `.scss` files inside `style
 
 It is recomended to install the backend first, make sure you have Python 3.10, virtualenv or pipenv and a database engine (Posgresql 14 recomended)
 
-1. Install the python packages: `$ pip install -r requirements.txt`
+1. Install the python packages: `$ pip install -r requirements.txt` and `$ pip install flask-jwt-extended` and `$ pip install requests`
 2. Create a .env file based on the .env.example: `$ cp .env.example .env`
 3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL .env variable with one of the possible values, make sure yo replace the valudes with your database information
 
@@ -18,7 +18,15 @@ It is recomended to install the backend first, make sure you have Python 3.10, v
 
 4. In SQL directory exits a dump for POSTGRESQL, rename the extensión to sql before import to your database
 
-5. Run the application: `$ pipenv run start` or activate env and `$ python3 src/app.py`
+5. Run the application: `$ pipenv run start`
+
+### Install and configure postgresql in UBUNTU or Gitpod
+
+1.- Install posgresql server `$ sudo apt install postgresql postgresql-contrib`
+2.- Create the user for postgresql  `$ createuser --interactive` ask for name and more (ej. youruser)
+3.- Create the database `$ createdb yourdatabase`
+4.- Add the user to postgresql (the same of 3. ) `$ sudo adduser youruser` ask for password, this is your user/password for connect to DB
+5.- Use SQL/dump_for_postgresql.sql for fill your database with shell or other program
 
 ### Front-End Manual Installation
 

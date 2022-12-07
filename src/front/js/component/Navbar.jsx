@@ -16,7 +16,7 @@ export const Navbar = () => {
 		const llamada = async () => {
 			const url = '/api/favorites'
 			const method = 'POST'
-			const head = { "Content-Type": "application/json" }
+			const head = { "Access-Control-Allow-Origin": "*","Content-Type": "application/json" }
 			//vendrá del formulario
 			const body = { public_id: store.user_public_id }
 			const datos = await actions.solicitudesAPI(url, method, head, body)

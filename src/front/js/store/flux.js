@@ -15,7 +15,8 @@ const getState = ({ getStore, getPrivate, getActions, setStore }) => {
 				const store = getStore()
 				if (!store.hasOwnProperty(destino)) {
 					try {
-						const resp = await fetch(process.env.BACKEND_URL + url)
+						const header = {"Access-Control-Allow-Origin": "*"}
+						const resp = await fetch(process.env.BACKEND_URL + url, header)
 						const data = await resp.json()
 						let llenar = {}
 						llenar[destino] = data

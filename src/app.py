@@ -37,6 +37,7 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 
 app = Flask(__name__)
+
 app.url_map.strict_slashes = False
 # JWT
 app.config["JWT_HEADER_TYPE"] = "Bearer"
@@ -54,6 +55,7 @@ api = Blueprint('api', __name__)
 app.register_blueprint(api, url_prefix='/api')
 # Add separate routes in routes directory
 app.register_blueprint(r_sections, url_prefix="/api")
+
 app.register_blueprint(r_films, url_prefix="/api")
 app.register_blueprint(r_people, url_prefix="/api")
 app.register_blueprint(r_planets, url_prefix="/api")
@@ -67,10 +69,11 @@ app.register_blueprint(r_private, url_prefix="/api")
 app.register_blueprint(r_signup, url_prefix="/api")
 app.register_blueprint(r_favorites, url_prefix="/api")
 app.register_blueprint(r_logout, url_prefix="/api")
-
+CORS(app)
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
+print((db_url))
 if db_url is not None:
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
         "postgres://", "postgresql://")
@@ -80,10 +83,13 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 
+app.app_context().push()
+
 db.init_app(app)
 
 # Allow CORS requests to this API
 CORS(app)
+
 
 # add the admin
 setup_admin(app)
@@ -103,9 +109,9 @@ def handle_invalid_usage(error):
 
 @app.route('/')
 def sitemap():
-    if ENV == "development":
+    #if ENV == "development":
         return generate_sitemap(app)
-    return send_from_directory(static_file_dir, 'index.html')
+    #return send_from_directory(static_file_dir, 'index.html')
 
 # any other endpoint will try to serve it like a static file
 

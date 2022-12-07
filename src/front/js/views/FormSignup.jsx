@@ -17,7 +17,7 @@ function FormSignup() {
         // console.log({ username: "manolito", password: "ito" })
         const url = '/api/signup'
         const method = 'POST'
-        const head = { "Content-Type": "application/json" }
+        const head = { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
         //vendrá del formulario
 
 

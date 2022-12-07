@@ -11,6 +11,7 @@ function Logout() {
             const url = '/api/logout'
             const method = 'POST'
             const head = {
+                "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json"
             }
 
